@@ -14,6 +14,7 @@ describe("About Applying What We Have Learnt", function() {
     ];
   });
 
+
   /*********************************************************************************/
 
   it("given I'm allergic to nuts and hate mushrooms, it should find a pizza I can eat (imperative)", function () {
@@ -32,17 +33,55 @@ describe("About Applying What We Have Learnt", function() {
         }
     }
 
-    expect(productsICanEat.length).toBe(FILL_ME_IN);
+    expect(productsICanEat.length).toBe(1);
   });
 
   it("given I'm allergic to nuts and hate mushrooms, it should find a pizza I can eat (functional)", function () {
 
       var productsICanEat = [];
 
-      /* solve using filter() & all() / any() */
+      productsICanEat = _.filter(products, function(food){
+          var containsMushrooms = _.any(food.ingredients, function(i) {
+            return i == 'mushrooms';
+        });
+          return !containsMushrooms && !food.containsNuts;
+        });
 
-      expect(productsICanEat.length).toBe(FILL_ME_IN);
+      expect(productsICanEat.length).toBe(1);
   });
+
+  //
+  // Jake's Example
+  //
+  productsICanEat = _.reject(products, function(product){
+    return product.containsNuts || _.contains(product.ingridents, 'mushrooms');
+  });
+
+  // var productsICanEat = [];
+
+   // products is an array of objects defined above (all the pizzas - yummy!)
+   // filter each pizza
+   // !pizza.containsNuts will return pizzas that do not contain nuts
+   //    whereas pizza.ContainNuts will return pizzas that do contain nuts
+   // !_.any(pizza.ingredients, function(ingredient) ...
+   //      _.any will return the items that return true
+   //      !_.any will return the items that do not return true
+   //      for each pizza.ingredients you iterate over each item in the array
+   //        if one of the ingredients === 'mushrooms' _.any will return true
+   //        if return ingredient === 'mushrooms' is true
+   //          it is not returned to !_.any because ! says return the ones that are not true
+   //   hahah ... explaining this is a lot harder than doing it! :simple_smile: Hope this helps!
+
+  //  productsICanEat = _.filter(products, function(pizza){
+  //    return !pizza.containsNuts && !_.any(pizza.ingredients,function(ingredient){
+  //      return ingredient === 'mushrooms';
+  //    });
+  //  });
+
+
+
+
+
 
   /*********************************************************************************/
 
@@ -55,14 +94,48 @@ describe("About Applying What We Have Learnt", function() {
       }
     }
 
-    expect(sum).toBe(FILL_ME_IN);
+    expect(sum).toBe(233168);
   });
 
   it("should add all the natural numbers below 1000 that are multiples of 3 or 5 (functional)", function () {
 
-    var sum = FILL_ME_IN;    /* try chaining range() and reduce() */
+    var sum = 0;
 
-    expect(233168).toBe(FILL_ME_IN);
+    /* try chaining range() and reduce() */
+
+    // var five = _.range(0, 1000, 5);
+    // var three = _.range(0, 1000, 3);
+    //
+    //
+    // var threeAndFive = five.concat(three);
+    //
+    // // var sumTest = _.difference(three, five);
+    // console.log(threeAndFive);
+    //
+    //
+    // sum = _.reduce(threeAndFive, function(memo, num){ return memo + num; }, 0);
+
+
+    // sumThree = _.reduce(three, function(memo, num){ return memo + num; }, 0);
+    // sumFive = _.reduce(five, function(memo, num){ return memo + num; }, 0);
+
+    //
+    // Trey's example
+    //
+    // var sum = _.range(1, 1000).reduce(function(s, n) { return (n % 3 === 0 || n % 5 === 0) ? s + n : s; }, 0);
+
+    //
+    // Jake's Example
+    //
+    function multiples(end, multiples) {
+      var range = _.range(1000);
+      console.log(range);
+    }
+
+    console.assert( multiples(1000, [3,5]) === 233168);
+    console.assert('multiples: Success');
+
+    expect(233168).toBe(sum);
   });
 
   /*********************************************************************************/
